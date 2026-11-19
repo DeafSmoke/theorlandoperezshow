@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090909">
+  <meta name="description" content="The Orlando Perez Show — real conversations, interviews, news, commentary, and more.">
+  <title>The Orlando Perez Show</title>
+  <style>
+    :root {
+      --bg: #090909;
+      --panel: #121212;
+      --panel-soft: #171717;
+      --text: #f4f1eb;
+      --muted: #aaa49a;
+      --gold: #c6a15a;
+      --red: #d52b32;
+      --line: rgba(198,161,90,.28);
+      --max: 1160px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: radial-gradient(ellipse at 50% -18%, rgba(130,85,35,.18), transparent 42%), var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(var(--max), calc(100% - 44px)); margin-inline: auto; }
+    header {
+      border-bottom: 1px solid var(--line);
+      background: rgba(8,8,8,.92);
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(14px);
+    }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .wordmark { font-family: Georgia, "Times New Roman", serif; font-size: 18px; letter-spacing: .04em; font-weight: 700; }
+    .wordmark span { color: var(--red); font-style: italic; font-weight: 500; }
+    nav { display: flex; gap: clamp(16px, 3vw, 34px); align-items: center; }
+    nav a { color: #d8d3ca; font-size: 12px; text-transform: uppercase; letter-spacing: .13em; transition: color .2s; }
+    nav a:hover, nav a:focus-visible { color: var(--gold); }
+    .menu-button { display: none; border: 1px solid var(--line); color: var(--text); background: transparent; border-radius: 6px; padding: 8px 11px; }
+    .hero { padding: clamp(48px, 8vw, 92px) 0 38px; text-align: center; }
+    .logo-frame { width: min(540px, 88%); margin: 0 auto 24px; }
+    .logo-frame img { display: block; width: 100%; height: auto; object-fit: contain; }
+    .eyebrow { color: var(--gold); font-size: 11px; text-transform: uppercase; letter-spacing: .28em; margin: 0 0 12px; }
+    h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(28px, 4vw, 43px); line-height: 1.16; font-weight: 500; letter-spacing: .015em; margin: 0 auto 13px; }
+    .intro { max-width: 650px; margin: 0 auto; color: var(--muted); font-size: 15px; }
+    .rule { width: 74px; height: 2px; background: var(--red); margin: 27px auto 0; }
+    .section { padding: 28px 0 52px; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 17px; }
+    .section-heading h2 { margin: 0; font-size: 15px; text-transform: uppercase; letter-spacing: .18em; font-weight: 650; }
+    .section-heading p { margin: 0; color: var(--muted); font-size: 12px; }
+    .player-shell { background: linear-gradient(145deg, #181818, #0d0d0d); border: 1px solid rgba(198,161,90,.42); border-radius: 12px; padding: 14px; box-shadow: 0 18px 50px rgba(0,0,0,.35); }
+    .player-shell .redcirclePlayer-7fa62999-e140-4a71-a688-5e27d6fc86a7 { min-height: 180px; }
+    .topics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .topic { padding: 22px 20px; border: 1px solid var(--line); border-radius: 10px; background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.012)); }
+    .topic .num { color: var(--red); font-size: 11px; letter-spacing: .18em; }
+    .topic h3 { margin: 7px 0 5px; font-family: Georgia, "Times New Roman", serif; font-size: 22px; font-weight: 500; }
+    .topic p { margin: 0; color: var(--muted); font-size: 13px; }
+    .about { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 42px 0; text-align: center; background: rgba(255,255,255,.018); }
+    .about h2 { font-family: Georgia, "Times New Roman", serif; font-size: 27px; font-weight: 500; margin: 0 0 10px; }
+    .about p { max-width: 700px; color: var(--muted); margin: 0 auto; font-size: 14px; }
+    .contact { text-align: center; padding: 40px 0 50px; }
+    .contact h2 { margin: 0 0 8px; font-family: Georgia, "Times New Roman", serif; font-weight: 500; font-size: 24px; }
+    .contact p { margin: 0; color: var(--muted); font-size: 13px; }
+    footer { border-top: 1px solid var(--line); padding: 18px 0; color: #817b73; font-size: 11px; text-align: center; letter-spacing: .04em; }
+    .accent { color: var(--gold); }
+    @media (max-width: 720px) {
+      .wrap { width: min(100% - 30px, var(--max)); }
+      .nav { min-height: 66px; }
+      .wordmark { font-size: 15px; }
+      .menu-button { display: inline-block; }
+      nav { display: none; position: absolute; top: 65px; left: 0; right: 0; padding: 18px 22px 22px; background: #0b0b0b; border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start; }
+      nav.open { display: flex; }
+      .hero { padding-top: 50px; }
+      .topics { grid-template-columns: 1fr; gap: 10px; }
+      .topic { padding: 17px; }
+      .section-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
+      .player-shell { padding: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="wordmark" href="#home" aria-label="The Orlando Perez Show home">THE ORLANDO PEREZ <span>SHOW</span></a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+      <nav id="main-nav" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#episodes">Episodes</a>
+        <a href="#topics">Topics</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap" id="home">
+      <p class="eyebrow">A podcast with room for every conversation</p>
+      <div class="logo-frame">
+        <img src="The%20Orlando%20Perez%20Show%20Logo.png" alt="The Orlando Perez Show logo">
+      </div>
+      <h1>Real conversations. <span class="accent">Unfiltered perspectives.</span></h1>
+      <p class="intro">News, interviews, opinions, culture, and the conversations that matter — with Orlando Perez.</p>
+      <div class="rule"></div>
+    </section>
+
+    <section class="section wrap" id="episodes">
+      <div class="section-heading">
+        <h2>Listen to the show</h2>
+        <p>Latest episodes and the full podcast archive</p>
+      </div>
+      <div class="player-shell">
+        <script async defer onload="redcircleShowIframe();" src="https://api.podcache.net/embedded-show-player/sh/7fa62999-e140-4a71-a688-5e27d6fc86a7?theme=dark"></script>
+        <div class="redcirclePlayer-7fa62999-e140-4a71-a688-5e27d6fc86a7" style="height:auto;"></div>
+        <style>
+          .redcircle-link:link,.redcircle-link:hover,.redcircle-link:active,.redcircle-link:visited { color:#ea404d; text-decoration:none; }
+        </style>
+        <p style="margin:8px 0 0 8px;font-family:sans-serif;font-size:10px;color:#8d8d8d;">Powered by <a class="redcircle-link" href="https://redcircle.com?utm_source=rc_embedded_player&amp;utm_medium=web&amp;utm_campaign=embedded_v1">RedCircle</a></p>
+      </div>
+    </section>
+
+    <section class="section wrap" id="topics">
+      <div class="section-heading">
+        <h2>More than one conversation</h2>
+        <p>Curiosity leads the way</p>
+      </div>
+      <div class="topics">
+        <article class="topic"><span class="num">01 / PEOPLE</span><h3>Interviews</h3><p>Conversations with interesting people and fresh perspectives.</p></article>
+        <article class="topic"><span class="num">02 / THE WORLD</span><h3>News & Current Events</h3><p>A closer look at the stories making headlines and why they matter.</p></article>
+        <article class="topic"><span class="num">03 / OPEN DISCUSSION</span><h3>Commentary</h3><p>Opinions, everyday topics, culture, and anything worth discussing.</p></article>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="wrap">
+        <p class="eyebrow">Meet your host</p>
+        <h2>About Orlando Perez</h2>
+        <p>The Orlando Perez Show is a place for open conversation — from interviews and current events to personal perspectives and the unexpected topics that bring people together. More about Orlando coming soon.</p>
+      </div>
+    </section>
+
+    <section class="contact wrap" id="contact">
+      <h2>Join the conversation</h2>
+      <p>Listen, share an episode, and check back for new conversations.</p>
+    </section>
+  </main>
+
+  <footer><div class="wrap">© 2026 The Orlando Perez Show. All rights reserved.</div></footer>
+  <script>
+    const menuButton = document.querySelector('.menu-button');
+    const nav = document.querySelector('#main-nav');
+    menuButton.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(open));
+    });
+    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+    }));
+  </script>
+</body>
+</html>
